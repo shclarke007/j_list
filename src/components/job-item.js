@@ -19,7 +19,7 @@ export const JobItem = ({ job }) => {
         <h2>{ job.attributes.title}</h2>
       </Modal.Header>
       <Modal.Content>
-        <Icon name='heart' color='red' /> Add to Favourite
+        <Button color="red"> Add to Favourite</Button>
       </Modal.Content>
       <Modal.Content>
         {parse(job.attributes.body)}
