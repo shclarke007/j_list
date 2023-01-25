@@ -1,6 +1,10 @@
 import { useEffect, useState } from 'react';
 
 const API_ENDPOINT = `https://api.teamtailor.com/v1/jobs`
+/**
+ * It fetches data from the API and returns the data, error, and loading state
+ * @returns An object with three properties: data, error, and isLoading.
+ */
 
 export const useJobs = () => {
   const [isLoading, setIsLoading] = useState(true)

@@ -3,7 +3,7 @@ import { Container } from 'semantic-ui-react';
 
 export const Nav = () => {
   return (
-    <Container text>
+    <Container textAlign='center'>
       <h1>Job list</h1>
     </Container>
   )

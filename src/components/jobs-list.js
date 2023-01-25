@@ -1,8 +1,12 @@
 import React from 'react';
 import { useJobs } from '../main/queries/use-jobs';
 import { Nav } from './nav';
-import { Card, Image, Icon, Container, Divider } from 'semantic-ui-react';
-
+import { Card, Image, Divider, Grid } from 'semantic-ui-react';
+import { JobItem } from './job-item';
+/**
+ * We're using the useJobs hook to fetch the data from the API, and then we're using the data to render
+ * a list of cards
+ */
 export const JobsList = () => {
   const { data, isLoading, error } = useJobs()
   
@@ -18,32 +22,31 @@ export const JobsList = () => {
     <>
       <Nav />
       <Divider />
-      <Container fluid>
+      <Grid columns={4} container relaxed stackable >
         {
           data?.map((job) => (
-            <Card key={job.id}>
-              <Image src={job.attributes.picture.thumb} />
-              <Card.Content>
-                <Card.Header>
-                  {job.attributes.title}
-                </Card.Header>
-                 <Card.Meta>
-                  Job Status: {job.attributes.status}
-                </Card.Meta>
-                <Card.Description>
-                  {job.attributes.pitch}
-                </Card.Description>
-              </Card.Content>
-              <Card.Content extra>
-                <a href={'job.links.careersite-job-url'}>
-                  <Icon name='arrow circle right'/>
-                  View More
-                </a>
-              </Card.Content>
-              </Card>
+            <Grid.Column>
+              <Card key={job.id} raised card orange>
+                <Image src={job.attributes.picture.thumb} />
+                <Card.Content>
+                  <Card.Header>
+                    {job.attributes.title}
+                  </Card.Header>
+                  <Card.Meta>
+                    Job Status: {job.attributes.status}
+                  </Card.Meta>
+                  <Card.Description>
+                    {job.attributes.pitch}
+                  </Card.Description>
+                </Card.Content>
+                <Card.Content extra>
+                  <JobItem job={job} />
+                </Card.Content>
+                </Card>
+              </Grid.Column>
             ))
         }
-      </Container>
+      </Grid>
     </>
   )
   
