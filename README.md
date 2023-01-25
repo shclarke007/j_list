@@ -8,6 +8,7 @@ In the project directory, you can run:
 
 ### Requirements
 npm 
+React
 
 ### `npm install`
 Install dependencies for project
