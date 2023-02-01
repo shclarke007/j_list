@@ -1,40 +1,28 @@
-import { useEffect, useState } from 'react';
+import { useQuery } from 'react-query';
 
-const API_ENDPOINT = `https://api.teamtailor.com/v1/jobs`
+const API_ENDPOINT = 'https://api.teamtailor.com/v1/jobs'
+
 /**
- * It fetches data from the API and returns the data, error, and loading state
- * @returns An object with three properties: data, error, and isLoading.
+ * `useQuery` is a custom hook that fetches data from the API and returns the data, isLoading, error,
+ * and isSuccess states
  */
 
-export const useJobs = () => {
-  const [isLoading, setIsLoading] = useState(true)
-  const [error, setError] = useState({ show: false, message: '' })
-  const [data, setData] = useState(null)
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        setIsLoading(true);
-        const response = await fetch(`${API_ENDPOINT}`, {
-          headers: {
-            'Authorization': `Bearer ${process.env.REACT_APP_API_KEY}`,
-            'X-Api-Version': `${process.env.REACT_APP_API_VERSION}`,
-          }
-        });
-        const json = await response.json();
-        setData(json.data);
-        setIsLoading(false);
-      } catch (err) {
-        setError({ show: true, message: err.message });
-        setIsLoading(false);
-      }
+const fetchJobsListData = async () => {
+  const response =  await fetch(`${API_ENDPOINT}`, {
+    headers: { 
+      'Authorization': `Bearer ${process.env.REACT_APP_API_KEY}`,
+      'X-Api-Version': `${process.env.REACT_APP_API_VERSION}`,
     }
-    fetchData();
-  }, []);
+  });
+  const json = await response.json()
+  return json.data
+}
 
-  return {
+export const useJobs = (data, isLoading, error, isSuccess) => {
+  return useQuery('jobs', fetchJobsListData, {
     data,
-    error,
-    isLoading
-  }
+    isLoading,
+    error, 
+    isSuccess }
+  )
 };

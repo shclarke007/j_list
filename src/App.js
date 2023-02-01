@@ -4,6 +4,7 @@ import { QueryClientProvider, QueryClient } from 'react-query';
 import { JobsList } from './components/jobs-list';
 
 const client = new QueryClient();
+
 /**
  * We're using the QueryClientProvider component to wrap our Router component, which in turn wraps our
  * Routes component, which in turn wraps our Route component, which in turn wraps our JobsList
