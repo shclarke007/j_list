@@ -6,11 +6,14 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 In the project directory, you can run:
 
-### Requirements
-npm 
-React
+### Technologies
+NPM   
+React  
+Semantic-UI React     
+React Query  
 
-### `npm install`
+
+### `Install`
 Install dependencies for project
 
 ```
@@ -19,8 +22,8 @@ cd job-list-app
 npm install
 ```
 
-### `npm start`
-
+### `Start`
+`npm start`
 Runs the app in the development mode.\
 Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
