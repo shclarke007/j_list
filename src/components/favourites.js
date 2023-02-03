@@ -1,12 +1,13 @@
 import React from 'react'
-import { Button, Container, Modal, Grid, Card, Image } from 'semantic-ui-react'
-import parse from 'html-react-parser';
+import { Button, Container, Modal, Grid, Card } from 'semantic-ui-react'
 
 /**
- * `Favourites` is a function that takes in an array of jobs and returns a modal that displays the jobs
- * in a grid
+ * It's a function that takes in an array of jobs, and returns a modal that displays the jobs in the
+ * array
+ * @param favourites - This is the array of jobs that are in the favourites list.
+ * @returns A modal with a list of jobs that have been favourited.
  */
-export const Favourites = (favourites) => {
+export const Favourites = () => {
   const [open, setOpen] = React.useState(false)
   const favouriteJobs = JSON.parse(localStorage.getItem('favourites'))
 
@@ -20,35 +21,31 @@ export const Favourites = (favourites) => {
               color='red'
               content='My favourites'
               icon='heart'
-              label={ { basic: true, color: 'red', pointing: 'left', content: `${favouriteJobs.length}` } }
+              label={ {
+                basic: true,
+                color: 'red',
+                pointing: 'left',
+                content: `${favouriteJobs === null ? 0 : favouriteJobs.length}`
+              } }
             />  
           }
           onClose={ () => setOpen(false) }
           open={ open }
           closeIcon>
-          <h2>Favourites:</h2>
-          <Grid columns={4} container relaxed stackable >
-            { favouriteJobs.length > 0 ?
+          <Modal.Header>My Favourites:</Modal.Header>
+          <Modal.Content>
+            { favouriteJobs?.length > 0 ?
               (favouriteJobs.map((job) => (
-                <Grid.Column key={ job.id }>
-                  <Card raised card orange>
-                    <Image src={job.attributes.picture.thumb} />
-                    <Card.Content>
-                      <Card.Header>
-                        {job.attributes.title}
-                      </Card.Header>
-                      <Card.Meta>
-                        Job Status: {job.attributes.status}
-                      </Card.Meta>
-                      <Card.Description>
-                        {parse(job.attributes.pitch)}
-                      </Card.Description>
-                    </Card.Content>
-                  </Card>
-                </Grid.Column>
+                <Card
+                  key={ job.id }
+                  color='red'
+                  centered header={ job.attributes.title }
+                  meta={ `Job Status: ${job.attributes.status}` }
+                  link
+                />
               ))) : (<Grid.Column><h2>{'No Favourites'}</h2></Grid.Column>)
             }
-          </Grid>
+          </Modal.Content>
         </Modal>
       </Container>
     </>

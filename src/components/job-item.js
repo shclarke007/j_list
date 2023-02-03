@@ -14,13 +14,13 @@ export const JobItem = ({ job }) => {
 
   return (
     <Modal
-      trigger={
-        <Button color='orange' onClick={ () => setFirstOpen(true) }> Show more </Button>
-      }
       closeIcon
       onClose={() => setFirstOpen(false)}
       onOpen={() => setFirstOpen(true)}
-      open={firstOpen}
+      open={ firstOpen }
+      trigger={
+        <Button color='orange' onClick={ () => setFirstOpen(true) }> View more <Icon name='arrow right'/></Button>
+      }
     >
       <Modal.Header>
         <Image src={ job.attributes.picture.standard } />
@@ -38,9 +38,10 @@ export const JobItem = ({ job }) => {
         </Button>
       </Modal.Actions>
       <Modal
-          onClose={() => setSecondOpen(false)}
-          open={secondOpen}
-          size='small'
+        onClose={() => setSecondOpen(false)}
+        open={secondOpen}
+        size='small'
+        closeIcon
         >
           <Modal.Header>Enter Details</Modal.Header>
           <Modal.Content>
