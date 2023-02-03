@@ -11,25 +11,12 @@ import parse from 'html-react-parser';
 export const JobItem = ({ job }) => {
   const [firstOpen, setFirstOpen] = React.useState(false)
   const [secondOpen, setSecondOpen] = React.useState(false)
-  const [favourites, setFavourites] = React.useState(JSON.parse(localStorage.getItem("favourites")) || []);
-  
-  React.useEffect(() => {
-      localStorage.setItem("favourites", JSON.stringify(favourites));
-    }, [favourites]);
 
-  const handleAddToFavourites = (job) => {
-      if (favourites.find((favourite) => favourite.id === job.id)) {
-        alert("Job is already in your favorites!");
-        return;
-      }
-      setFavourites([...favourites, job]);
-      localStorage.setItem("favourites", JSON.stringify([...favourites, job]));
-      alert("Job added to your favorites!");
-    };
-  
   return (
     <Modal
-      trigger={<Button color='orange' onClick={() => setFirstOpen(true)}> Show more </Button> }
+      trigger={
+        <Button color='orange' onClick={ () => setFirstOpen(true) }> Show more </Button>
+      }
       closeIcon
       onClose={() => setFirstOpen(false)}
       onOpen={() => setFirstOpen(true)}
@@ -39,9 +26,6 @@ export const JobItem = ({ job }) => {
         <Image src={ job.attributes.picture.standard } />
         <h2>{ job.attributes.title}</h2>
       </Modal.Header>
-      <Modal.Content>
-        <Button color="red" onClick={ () => handleAddToFavourites(job) }> Add to Favourites</Button>
-      </Modal.Content>
       <Modal.Content>
         {parse(job.attributes.body)}
       </Modal.Content>
